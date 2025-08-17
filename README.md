@@ -27,10 +27,7 @@ make
 ./websockify 127.0.0.1:6761 127.0.0.1:5761
 ```
 __________________________________________________________________
-Онлайн конфигуратор не работает, поэтому скачиваем отсюда:
-https://github.com/betaflight/betaflight-configurator/releases/tag/10.10.0
-__________________________________________________________________
-Устанавливаем пакет  и необходимые зависимости:
+Запуск газебы
 ```bash
-sudo dpkg -i betaflight-configurator_10.10.0_amd64.deb
+gz sim -v4 -r ~/betaflight_gazebo/worlds/iris_runway_betaflight.sdf
 ```
