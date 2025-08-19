@@ -42,8 +42,8 @@ find . -type f -name '*.so' -print
 
 Переменные для запуска:
 ```bash
-export gz_plug_path=~/betaflight_gazebo/build:$gz_plug_path
-export ld_lib_path=~/betaflight_gazebo/build:$ld_lib_path
+export GZ_PLUGIN_PATH=~/betaflight_gazebo/build:$GZ_PLUGIN_PATH
+export LD_LIBRARY_PATH=~/betaflight_gazebo/build:$LD_LIBRARY_PATH
 ```
 __________________________________________________________________
 Запуск газебы
