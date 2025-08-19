@@ -26,6 +26,25 @@ cd websockify-other/c
 make
 ./websockify 127.0.0.1:6761 127.0.0.1:5761
 ```
+
+__________________________________________________________________
+Настройка газебы (Не было связи из-за ошибки: [Err] [SystemLoader.cc:92] Failed to load system plugin [BetaflightPlugin] : Could not find shared library. быи только исходники):
+```bash
+cd ~/betaflight_gazebo
+mkdir -p build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j$(nproc)
+```
+Проверить наличие образа:
+```bash
+find . -type f -name '*.so' -print
+```
+
+Переменные для запуска:
+```bash
+export gz_plug_path=~/betaflight_gazebo/build:$gz_plug_path
+export ld_lib_path=~/betaflight_gazebo/build:$ld_lib_path
+```
 __________________________________________________________________
 Запуск газебы
 ```bash
