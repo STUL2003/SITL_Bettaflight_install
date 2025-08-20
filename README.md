@@ -50,3 +50,10 @@ __________________________________________________________________
 ```bash
 gz sim -v4 -r ~/betaflight_gazebo/worlds/iris_runway_betaflight.sdf
 ```
+__________________________________________________________________
+Переписал исходники бетафлай, теперь пересборка:
+```bash
+cd ~/betaflight_gazebo
+cp src/BetaflightPlugin.cc src/BetaflightPlugin.cc.bak
+```
+Потом снова к настройке газебы
