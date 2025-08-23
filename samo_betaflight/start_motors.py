@@ -59,7 +59,7 @@ def main():
     for _ in range(20):
         send_frame(sock, ch); time.sleep(0.5)
 
-    # опускаем газ и yaw (disarm)
+    # disarm
     ch = [roll, pitch, 1000, 1500, 1500, 1500, 1500, 1500]
     for _ in range(20):
         send_frame(sock, ch); time.sleep(0.1)
