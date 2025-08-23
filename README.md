@@ -65,22 +65,7 @@ feature -MOTOR_STOP
 set enable_stick_arming = ON
 set msp_override_channels_mask = 15
 set msp_override_failsafe = OFF
+save
 ```
 **Потом можно проверить это всё:**
-# 
-# Building AutoComplete Cache ... Done!
-# 
-# feature
-Enabled:  AIRMODE ANTI_GRAVITY
-Available:  INFLIGHT_ACC_CAL MOTOR_STOP 3D
-Unavailable: RX_PPM RX_SERIAL SERVO_TILT SOFTSERIAL GPS OPTICALFLOW RANGEFINDER TELEMETRY RX_PARALLEL_PWM RSSI_ADC LED_STRIP DISPLAY OSD CHANNEL_FORWARDING TRANSPONDER RX_SPI ESC_SENSOR
-
-# get enable_stick_arming
-enable_stick_arming = ON
-Allowed values: OFF, ON
-Default value: OFF
-
-# get msp_override_channels_mask
-msp_override_channels_mask = 15
-Allowed range: 0 - 262143
-Default value: 0
+<img width="1246" height="282" alt="image" src="https://github.com/user-attachments/assets/ea0b4587-422e-4820-b46b-1e9f8f7dbd97" />
