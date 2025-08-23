@@ -19,41 +19,37 @@ ____________________________________________________________________
 ```bash
 ./obj/main/betaflight_SITL.elf
 ```
-В втором запускаем:
+В втором запускаем прокси, чтобы одновремено сидеть в конфигураторе, и проверять код:
 ```bash
-git clone https://github.com/novnc/websockify-other.git
-cd websockify-other/c
-make
-./websockify 127.0.0.1:6761 127.0.0.1:5761
+python3 samo_betaflight/proxy_.py
 ```
-
-__________________________________________________________________
+В третьем запускаем:
+```bash
+# git clone https://github.com/novnc/websockify-other.git
+cd websockify-other/c
+# make
+# Новый порт
+./websockify 127.0.0.1:6761 127.0.0.1:5765
+```
+_____________________________________________________________
 Настройка газебы (Не было связи из-за ошибки: [Err] [SystemLoader.cc:92] Failed to load system plugin [BetaflightPlugin] : Could not find shared library. быи только исходники):
 ```bash
 cd ~/betaflight_gazebo
 mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
-```
-Проверить наличие образа:
-```bash
+# Проверить наличие образа:
 find . -type f -name '*.so' -print
 ```
 
-Переменные для запуска:
+Переменные для запуска и запуск в четвертом терминале:
 ```bash
 export GZ_PLUGIN_PATH=~/betaflight_gazebo/build:$GZ_PLUGIN_PATH
 export LD_LIBRARY_PATH=~/betaflight_gazebo/build:$LD_LIBRARY_PATH
-```
-__________________________________________________________________
-Запуск газебы
-```bash
 gz sim -v4 -r ~/betaflight_gazebo/worlds/iris_runway_betaflight.sdf
 ```
-__________________________________________________________________
-Переписал исходники бетафлай, теперь пересборка:
-```bash
-cd ~/betaflight_gazebo
-cp src/BetaflightPlugin.cc src/BetaflightPlugin.cc.bak
-```
-Потом снова к настройке газебы
+Пока еще не разобрался в каком порядке
+_____________________________________________________________________________________
+
+start_motors пока в симуляции не отображается
+
