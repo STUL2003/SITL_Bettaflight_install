@@ -72,12 +72,13 @@ save
 
 
 ________________________________________________
-**Вариант через докер:**
+**Ardupilot и gazebo**
+Ardupilot:
 ```sh
-xhost +local:
-sudo docker run -it --rm --name=gazebo \
--e DISPLAY=$DISPLAY \
--v /tmp/.X11-unix:/tmp/.X11-unix:ro \
-ghcr.io/j-rivero/gazebo:harmonic-full
-# root@59649bc82101 gz sim -v 4 shapes.sdf
+cd ~
+git clone --recurse-submodules --depth=1 https://github.com/ArduPilot/ardupilot.git
+cd ardupilot
+./waf configure --board sitl
+./waf copter
+./Tools/autotest/sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console --map --out=udp:127.0.0.1:14550
 ```
