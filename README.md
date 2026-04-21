@@ -69,3 +69,15 @@ save
 ```
 **Потом можно проверить это всё:**
 <img width="1246" height="282" alt="image" src="https://github.com/user-attachments/assets/ea0b4587-422e-4820-b46b-1e9f8f7dbd97" />
+
+
+________________________________________________
+**Вариант через докер:**
+```sh
+xhost +local:
+sudo docker run -it --rm --name=gazebo \
+-e DISPLAY=$DISPLAY \
+-v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+ghcr.io/j-rivero/gazebo:harmonic-full
+# root@59649bc82101 gz sim -v 4 shapes.sdf
+```
