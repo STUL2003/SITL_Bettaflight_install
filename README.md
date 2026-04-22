@@ -73,12 +73,73 @@ save
 
 ________________________________________________
 **Ardupilot и gazebo** <br>
-Ardupilot:
+Установка:
+```sh
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt update
+sudo apt install -y ros-jazzy-ros-gz-sim ros-jazzy-ros-gz-bridge ros-jazzy-ros-gz-interfaces
+sudo apt install -y cmake build-essential rapidjson-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+```
+Плагины:
 ```sh
 cd ~
+git clone https://github.com/ArduPilot/ardupilot_gazebo.git
+cd ardupilot_gazebo
+git submodule update --init --recursive  
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
+make -j$(nproc)
+```
+Сам ardupilot:
+```cd ~
 git clone --recurse-submodules --depth=1 https://github.com/ArduPilot/ardupilot.git
 cd ardupilot
+python3 -m venv venv-ardupilot
+source venv-ardupilot/bin/activate
+pip install --upgrade pip pymavlink MAVProxy
+./Tools/environment_install/install-prereqs-ubuntu.sh -y
 ./waf configure --board sitl
 ./waf copter
+```
+
+**Запуск**<br>
+1 терминал (Gazebo):
+```sh
+export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/ardupilot_gazebo/build:$GZ_SIM_SYSTEM_PLUGIN_PATH
+export GZ_SIM_RESOURCE_PATH=$HOME/ardupilot_gazebo/worlds:$HOME/ardupilot_gazebo/models:$GZ_SIM_RESOURCE_PATH
+gz sim -v 4 -r $HOME/ardupilot_gazebo/worlds/iris_runway.sdf
+```
+2 терминал (ArduPilot):
+```sh
+source /opt/ros/jazzy/setup.bash
+source ~/venv-ardupilot/bin/activate
+cd ~/ardupilot
 ./Tools/autotest/sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console --map --out=udp:127.0.0.1:14550
 ```
+
+3 терминал (Bridge):
+```sh
+source /opt/ros/jazzy/setup.bash
+ros2 run ros_gz_bridge parameter_bridge /world/iris_runway/model/iris_with_gimbal/model/gimbal/link/pitch_link/sensor/camera/image@sensor_msgs/msg/Image@gz.msgs.Image
+```
+
+4 терминал (Просмареть камеру):
+```sh
+source /opt/ros/jazzy/setup.bash
+ros2 run rqt_image_view rqt_image_view
+```
+
+____________________________________________
+Подъемы:
+```sh
+mode stabilize; arm throttle; rc 3 1300; rc 1 1600
+######################
+mode guided
+arm throttle
+takeoff 5
+
+mode alt_hold
+rc 3 1500
+```
+
