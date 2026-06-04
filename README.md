@@ -129,7 +129,11 @@ ros2 run ros_gz_bridge parameter_bridge /world/iris_runway/model/iris_with_gimba
 source /opt/ros/jazzy/setup.bash
 ros2 run rqt_image_view rqt_image_view
 ```
-
+5 терминал:
+```sh
+ros2 run ros_gz_bridge parameter_bridge /model/moving_target/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist
+ros2 topic pub /model/moving_target/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 1.5, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}" -r 10
+```
 ____________________________________________
 Подъемы:
 ```sh
